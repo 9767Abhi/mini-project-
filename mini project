@@ -1,0 +1,100 @@
+#include <stdio.h>
+#include <conio.h>
+#include <dos.h>
+
+void drawRobot(int x)
+{
+    textcolor(LIGHTCYAN);
+
+    gotoxy(x, 8);
+    cprintf("__T:");
+
+    gotoxy(x, 9);
+    cprintf("|ROBOT|");
+
+    gotoxy(x, 10);
+    cprintf("O----O");
+
+    textcolor(WHITE);
+
+    gotoxy(x + 3, 11);
+    cprintf("#");
+
+    gotoxy(x + 3, 12);
+    cprintf("#");
+
+    gotoxy(x + 3, 13);
+    cprintf("#");
+
+    gotoxy(x + 3, 14);
+    cprintf("#");
+
+    gotoxy(x + 3, 15);
+    cprintf("#");
+}
+
+void eraseRobot(int x)
+{
+    int i;
+
+    for(i = 8; i <= 15; i++)
+    {
+        gotoxy(x, i);
+        cprintf("        ");
+    }
+}
+
+void main()
+{
+    int x, i;
+
+    clrscr();
+    textbackground(BLACK);
+    clrscr();
+
+    /* Heading */
+    textcolor(YELLOW);
+    gotoxy(27, 2);
+    cprintf("LINE FOLLOWER ROBOT");
+
+    /* START marker */
+    textcolor(LIGHTGREEN);
+    gotoxy(9, 5);
+    cprintf("START");
+
+    for(i = 7; i <= 22; i++)
+    {
+        gotoxy(8, i);
+        cprintf("|");
+    }
+
+    /* END marker */
+    gotoxy(65, 5);
+    cprintf("END");
+
+    for(i = 7; i <= 22; i++)
+    {
+        gotoxy(73, i);
+        cprintf("|");
+    }
+
+    /* Bottom message */
+    textcolor(YELLOW);
+    gotoxy(9, 24);
+    cprintf("Robot moving from START to END...");
+
+    /* Robot animation */
+    for(x = 10; x <= 65; x++)
+    {
+        eraseRobot(x - 1);
+        drawRobot(x);
+        delay(100);
+    }
+
+    /* Final message */
+    textcolor(LIGHTGREEN);
+    gotoxy(9, 25);
+    cprintf("Robot reached END successfully!");
+
+    getch();
+}
